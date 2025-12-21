@@ -16,6 +16,7 @@ def main():
     parser = argparse.ArgumentParser(description="Chatbot")
     parser.add_argument("user_prompt", type=str, help="User prompt")
     parser.add_argument("model", type=str, help="Model to use", default="gemini-2.5-flash", nargs='?')
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
     args = parser.parse_args()
     
     messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)])]
@@ -31,16 +32,20 @@ def main():
     
     prompt_token_count = metadata.prompt_token_count
     candidates_token_count = metadata.candidates_token_count
+    verbose = args.verbose
     
-    print("="*10)
-    print("Prompt:", args.user_prompt)
-    print()
-    print("Response:\n" + response.text)
-    print("="*10)
-    print("Metadata:", metadata)
-    print("Prompt tokens:", prompt_token_count)
-    print("Response tokens:", candidates_token_count)
-    
+    if verbose:
+        print("="*10)
+        print("User prompt:", args.user_prompt)
+        print()
+        print("Response:\n" + response.text)
+        print("="*10)
+        print("Metadata:", metadata)
+        print("Prompt tokens:", prompt_token_count)
+        print("Response tokens:", candidates_token_count)
+    else:
+        print(response.text)
+        
 
 if __name__ == "__main__":
     main()
