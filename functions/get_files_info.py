@@ -24,7 +24,7 @@ def get_files_info(working_directory, directory="."):
         
         for item in os.listdir(target_dir):
             item_path = os.path.join(target_dir, item)
-            str_info += f"- {os.path.basename(item)}: file_size={os.path.getsize(item_path)} bytes, is_dir={os.path.isdir(item)}\n"
+            str_info += f"- {os.path.basename(item_path)}: file_size={os.path.getsize(item_path)} bytes, is_dir={os.path.isdir(item_path)}\n"
             
         str_info = str_info.strip()
         
