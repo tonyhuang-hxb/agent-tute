@@ -1,0 +1,36 @@
+import os
+
+def get_files_info(working_directory, directory="."):
+    try:
+        working_dir_abs = os.path.abspath(working_directory)
+        
+        target_dir = os.path.normpath(os.path.join(working_dir_abs, directory))
+        valid_target_dir = os.path.commonpath([working_dir_abs, target_dir]) == working_dir_abs
+        is_dir = os.path.isdir(target_dir)
+        
+        # print("target_dir", target_dir)
+        # print(working_dir_abs)
+        # print(target_dir)
+        # print(valid_target_dir)
+        # print(is_dir)
+
+        if not valid_target_dir:
+            raise Exception(f'Error: Cannot list "{directory}" as it is outside the permitted working directory')
+
+        if not is_dir:
+            raise Exception(f'Error: "{directory}" is not a directory')
+        
+        str_info = ""
+        
+        for item in os.listdir(target_dir):
+            item_path = os.path.join(target_dir, item)
+            str_info += f"- {os.path.basename(item)}: file_size={os.path.getsize(item_path)} bytes, is_dir={os.path.isdir(item)}\n"
+            
+        str_info = str_info.strip()
+        
+        return str_info
+        
+    except Exception as e:
+        return f"Error: {str(e)}"
+        
+get_files_info("./calculator", directory="pkg")
