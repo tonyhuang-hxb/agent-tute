@@ -1,6 +1,7 @@
 import os
 
 def write_file(working_directory, file_path, content):
+    
     try:
         working_dir_abs = os.path.abspath(working_directory)
         
@@ -25,7 +26,6 @@ def write_file(working_directory, file_path, content):
             return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
         else:
             return f'Warning: Mismatch in number of characters written to "{file_path}", wrote {res} instead of {len(content)}'
-        
         
     except Exception as e:
         return f"Error: {str(e)}"
